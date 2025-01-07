@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="../static/script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+    <link rel="stylesheet" href="../static/style.css">
+
+</head>
+
+<body>
+    <nav class="sidebar close">
+        <div class="logo">
+            <i class="fas fa-bars menu-button"></i> <!-- Moved hamburger here -->
+
+            <span>Dashboard</span>
+        </div>
+        <ul class="menu">
+            <li class="menu-item">
+                <a href="/">
+                    <i class="fas fa-home"></i>
+                    <span>Acceuil</span>
+                </a>
+            </li>
+            <li class="menu-item">
+                <a href="{{ url_for('etudiants') }}">
+                    <i class="fas fa-users"></i>
+                    <span> Etudiants</span>
+                </a>
+            </li>
+            <li class="menu-item">
+                <a href="{{ url_for('resultats') }}">
+                    <i class="fas fa-chart-bar"></i>
+                    <span> Résultats</span>
+                </a>
+            </li>
+
+
+        </ul>
+    </nav>
+
+    <section class="dashboard">
+        <header class="dashboard-header">
+            <div class="dashboard-title">
+
+                <h1>Tableau de Bord PRAVAN</h1>
+            </div>
+            <button class="refresh-btn" onclick="refreshCharts2()">
+                <i class="fas fa-sync-alt"></i>
+                Actualiser
+            </button>
+
+            <button class="export-btn" onclick="exportToPDF()">
+                <i class="fas fa-file-pdf"></i>
+                Exporter PDF
+            </button>
+            <button class="excel-btn" onclick="exportToExcel()">
+                <i class="fas fa-file-excel"></i>
+                Exporter Excel
+            </button>
+        </header>
+        <main class="dashboard-main">
+
+            <div class="chart-container">
+                <h3>Evaluation des sexes selon les spécialités.</h3>
+                <canvas id="genderChart" height="300px"></canvas>
+
+
+            </div>
+            <div class="chart-container">
+                <h3>Evolution des moyennes selon les spécialités.</h3>
+                <select id="specialtySelect">
+                    <option value="">Sélectionner une spécialité </option>
+                </select>
+                <div id="specialtyGradesContainer" class="charts-container" style="height: 100px; margin-top: 35px;">
+                </div>
+            </div>
+            <div class="chart-container">
+                <h3>Moyenne Générale par Spécialité</h3>
+                <canvas id="polarAreaChart"></canvas>
+            </div>
+        </main>
+        <footer class="dashboard-footer">
+            <p>&copy; 2025 Dashboard</p>
+        </footer>
+    </section>
+
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const sidebar = document.querySelector(".sidebar");
+            const menuButton = document.querySelector(".menu-button");
+
+            menuButton.addEventListener("click", () => {
+                sidebar.classList.toggle("close");
+            });
+        });
+    </script>
+</body>
+
+</html>
